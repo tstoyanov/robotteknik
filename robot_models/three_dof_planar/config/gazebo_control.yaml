@@ -2,6 +2,9 @@ joint_state_controller:
     type: joint_state_controller/JointStateController
     publish_rate: 50
 
+my_state_controller:
+    type: my_simple_controllers/StateController
+
 position_joint_trajectory_controller:
     type: velocity_controllers/JointTrajectoryController
     joints:
