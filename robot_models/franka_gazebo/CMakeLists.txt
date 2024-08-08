@@ -1,20 +1,31 @@
 cmake_minimum_required(VERSION 3.8)
-project(three_dof_planar)
+project(franka_gazebo)
 
 if(CMAKE_COMPILER_IS_GNUCXX OR CMAKE_CXX_COMPILER_ID MATCHES "Clang")
   add_compile_options(-Wall -Wextra -Wpedantic)
 endif()
-  
+
 # find dependencies
 find_package(ament_cmake REQUIRED)
-# uncomment the following section in order to fill in
-# further dependencies manually.
-# find_package(<dependency> REQUIRED)
-  
+
+# Setup environment hooks that automatically prepend IGN_GAZEBO_RESOURCE_PATH and SDF_PATH when sourcing local_setup.<ext>
+#ament_environment_hooks(
+#  "cmake/environment_hooks/ign_gazebo_resource_path.bash"
+#  "cmake/environment_hooks/sdf_path.bash"
+#)
+
+set(THIS_PACKAGE_INCLUDE_DEPENDS
+rclcpp              
+std_msgs
+)
+foreach(Dependency IN ITEMS ${THIS_PACKAGE_INCLUDE_DEPENDS})
+  find_package(${Dependency} REQUIRED)
+endforeach()
+
 install(
-  DIRECTORY urdf
+  DIRECTORY urdf meshes
   DESTINATION share/${PROJECT_NAME}
-)   
+)
 install(
   DIRECTORY bringup/launch bringup/config
   DESTINATION share/${PROJECT_NAME}
@@ -33,4 +44,3 @@ if(BUILD_TESTING)
 endif()
 
 ament_package()
-
