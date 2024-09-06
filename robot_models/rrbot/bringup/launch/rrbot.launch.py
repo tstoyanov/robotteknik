@@ -53,7 +53,7 @@ def generate_launch_description():
             " ",
             PathJoinSubstitution(
                 [
-                    FindPackageShare("three_dof_planar"),
+                    FindPackageShare("rrbot"),
                     "urdf",
                     "rrbot.urdf.xacro",
                 ]
@@ -64,7 +64,7 @@ def generate_launch_description():
 
     robot_controllers = PathJoinSubstitution(
         [
-            FindPackageShare("three_dof_planar"),
+            FindPackageShare("rrbot"),
             "config",
             "rrbot_controllers.yaml",
         ]
@@ -84,7 +84,7 @@ def generate_launch_description():
     )
 
     rviz_config_file = PathJoinSubstitution(
-        [FindPackageShare("three_dof_planar"), "config", "rrbot.rviz"]
+        [FindPackageShare("rrbot"), "config", "rrbot.rviz"]
     )
 
     rviz_node = Node(

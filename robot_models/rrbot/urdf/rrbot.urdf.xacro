@@ -8,10 +8,10 @@ git@github.com:ros-controls/ros2_control_demos.git
   <xacro:arg name="prefix" default="" />
 
   <!-- Import RRBot macro -->
-  <xacro:include filename="$(find three_dof_planar)/urdf/rrbot_description.urdf.xacro" />
+  <xacro:include filename="$(find rrbot)/urdf/rrbot_description.urdf.xacro" />
 
   <!-- Import Rviz colors -->
-  <xacro:include filename="$(find three_dof_planar)/urdf/rrbot.materials.xacro" />
+  <xacro:include filename="$(find rrbot)/urdf/rrbot.materials.xacro" />
 
   <!-- Used for fixing robot -->
   <link name="world"/>
@@ -24,7 +24,7 @@ git@github.com:ros-controls/ros2_control_demos.git
   <!-- gazebo ros_control stuff-->
   <gazebo>
     <plugin filename="libgazebo_ros2_control.so" name="gazebo_ros2_control">
-      <parameters>$(find three_dof_planar)/config/rrbot_controllers.yaml</parameters>
+      <parameters>$(find rrbot)/config/rrbot_controllers.yaml</parameters>
     </plugin>
   </gazebo>
 

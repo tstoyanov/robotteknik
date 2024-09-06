@@ -1,6 +1,6 @@
 <?xml version="1.0"?>
 <package format="3">
-  <name>three_dof_planar</name>
+  <name>rrbot</name>
   <version>0.0.1</version>
   <description>Simple robot urdfs</description>
 
