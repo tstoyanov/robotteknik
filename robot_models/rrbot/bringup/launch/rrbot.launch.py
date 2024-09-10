@@ -124,12 +124,20 @@ def generate_launch_description():
             on_exit=[robot_controller_spawner],
         )
     )
-    
+   
     rqt = Node(
         package="rqt_joint_trajectory_controller",
         executable="rqt_joint_trajectory_controller",
         output="screen",
     )
+    
+    delay_rqt_after_controller_spawner = RegisterEventHandler(
+        event_handler=OnProcessExit(
+            target_action=robot_controller_spawner,
+            on_exit=[rqt],
+        )
+    )
+    
 
     nodes = [
         gazebo, 
@@ -138,7 +146,7 @@ def generate_launch_description():
         joint_state_broadcaster_spawner,
         delay_rviz_after_joint_state_broadcaster_spawner,
         delay_robot_controller_spawner_after_joint_state_broadcaster_spawner,
-        rqt,
+        delay_rqt_after_controller_spawner,
     ]
 
     return LaunchDescription(declared_arguments + nodes)
