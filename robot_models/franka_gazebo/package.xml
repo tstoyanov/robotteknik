@@ -15,14 +15,11 @@
   <depend>std_msgs</depend>
   <depend>rclcpp</depend>
 
-  <depend>gazebo_ros</depend>
-  <depend>gazebo_ros2_control</depend>
   <depend>ros2_control</depend>
   <depend>ros2_controllers</depend>
   <depend>rqt_joint_trajectory_controller</depend>
 
   <export>
-    <gazebo_ros gazebo_model_path="${prefix}/.." />
     <build_type>ament_cmake</build_type>
   </export>
 </package>
