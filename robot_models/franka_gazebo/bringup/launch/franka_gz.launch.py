@@ -27,14 +27,6 @@ def generate_launch_description():
     # Initialize Arguments
     gui = LaunchConfiguration("gui")
 
-    gazebo = IncludeLaunchDescription(
-        PythonLaunchDescriptionSource(
-            [PathJoinSubstitution([FindPackageShare("gazebo_ros"), "launch", "gazebo.launch.py"])]
-        ),
-        launch_arguments={"gdb": "false", "pause": "false"}.items(),
-        
-    )
-
     # Get URDF via xacro
     robot_description_content = Command(
         [
@@ -59,12 +51,16 @@ def generate_launch_description():
         ]
     )
 
-    spawn_entity = Node(
-        package="gazebo_ros",
-        executable="spawn_entity.py",
-        arguments=["-topic", "robot_description", "-entity", "panda_system_position", "-z 0.05"],
-        output="screen",
+    control_node = Node(
+        package="controller_manager",
+        executable="ros2_control_node",
+        parameters=[robot_controllers],
+        output="both",
+        remappings=[
+            ("~/robot_description", "/robot_description"),
+        ],
     )
+
     robot_state_pub_node = Node(
         package="robot_state_publisher",
         executable="robot_state_publisher",
@@ -122,8 +118,7 @@ def generate_launch_description():
     )
 
     nodes = [
-        gazebo, 
-        spawn_entity,
+        control_node,
         robot_state_pub_node,
         joint_state_broadcaster_spawner,
         delay_rviz_after_joint_state_broadcaster_spawner,

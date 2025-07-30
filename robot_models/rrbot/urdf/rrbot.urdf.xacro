@@ -20,37 +20,16 @@ git@github.com:ros-controls/ros2_control_demos.git
     <origin xyz="0 0 0" rpy="0 0 0" />
   </xacro:rrbot>
 
-
-  <!-- gazebo ros_control stuff-->
-  <gazebo>
-    <plugin filename="libgazebo_ros2_control.so" name="gazebo_ros2_control">
-      <parameters>$(find rrbot)/config/rrbot_controllers.yaml</parameters>
-    </plugin>
-  </gazebo>
-
-  <!-- Link1 -->
-  <gazebo reference="$(arg prefix)base_link">
-    <material>Gazebo/Orange</material>
-  </gazebo>
-
-  <!-- Link2 -->
-  <gazebo reference="$(arg prefix)link1">
-    <mu1>0.2</mu1>
-    <mu2>0.2</mu2>
-    <material>Gazebo/Yellow</material>
-  </gazebo>
-
-  <!-- Link3 -->
-  <gazebo reference="$(arg prefix)link2">
-    <mu1>0.2</mu1>
-    <mu2>0.2</mu2>
-    <material>Gazebo/Orange</material>
-  </gazebo>
-
   <!-- ros_control plugin -->
   <ros2_control name="RRBot" type="system">
     <hardware>
-      <plugin>gazebo_ros2_control/GazeboSystem</plugin>
+      <plugin>mock_components/GenericSystem</plugin>
+      <param name="calculate_dynamics">true</param>
+      <param name="custom_interface_with_following_offset"></param>
+      <param name="disable_commands">false</param>
+      <param name="mock_gpio_commands">false</param>
+      <param name="mock_sensor_commands">false</param>
+      <param name="position_state_following_offset">0.0</param>
     </hardware>
     <joint name="joint1">
       <command_interface name="velocity">
